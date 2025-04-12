@@ -1,0 +1,21 @@
+meta {
+  name: users id image -delete no image-
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{BASE_URL}}/users/1/image
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 404", function () {
+      expect(res.getStatus()).to.equal(404);
+  });
+}

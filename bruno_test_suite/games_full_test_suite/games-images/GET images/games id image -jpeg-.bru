@@ -1,0 +1,21 @@
+meta {
+  name: games id image -jpeg-
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/games/1/image
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Content type header is correct", function() {
+      expect(res.getHeader("content-type")).to.equal("image/jpeg");
+  });
+}

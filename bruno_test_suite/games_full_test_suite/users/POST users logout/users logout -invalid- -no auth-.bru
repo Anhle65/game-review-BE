@@ -1,0 +1,18 @@
+meta {
+  name: users logout -invalid- -no auth-
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{BASE_URL}}/users/logout
+  body: text
+  auth: none
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+  
+}

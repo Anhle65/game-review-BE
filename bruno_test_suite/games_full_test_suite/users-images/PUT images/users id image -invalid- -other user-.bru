@@ -1,0 +1,23 @@
+meta {
+  name: users id image -invalid- -other user-
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{BASE_URL}}/users/2/image
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: image/jpeg
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 403 or 404", function () {
+      expect(res.getStatus()).to.be.oneOf([403, 404]);
+  });
+  
+}

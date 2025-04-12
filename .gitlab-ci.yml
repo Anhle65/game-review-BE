@@ -1,0 +1,38 @@
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - deploy
+  - verify
+
+build:
+  stage: build
+  script:
+    - docker-compose build
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose down --remove-orphans
+    - docker-compose up -d
+  only:
+    - main
+
+check-container:
+  stage: verify
+  script:
+    - echo "Checking that container for ${CI_PROJECT_NAME} is running..."
+    - test "$(docker ps | grep ${CI_PROJECT_NAME})"
+  only:
+    - main
+
+get-logs:
+  stage: verify
+  script:
+    - docker logs -t "$(docker ps -a | grep ${CI_PROJECT_NAME} | awk '{print $1;}')"
+  only:
+    - main

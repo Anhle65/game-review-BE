@@ -1,0 +1,21 @@
+meta {
+  name: users id image -invalid- -DNE id-
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{BASE_URL}}/users/999999999/image
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 403 or 404", function () {
+      expect(res.getStatus()).to.be.oneOf([403, 404]);
+  });
+}

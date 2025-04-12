@@ -1,0 +1,18 @@
+{
+  "version": "1",
+  "name": "games_full_test_suite",
+  "type": "collection",
+  "scripts": {
+    "moduleWhitelist": [
+      "fs",
+      "path"
+    ],
+    "filesystemAccess": {
+      "allow": true
+    }
+  },
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

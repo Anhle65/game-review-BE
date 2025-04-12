@@ -1,0 +1,21 @@
+meta {
+  name: users logout
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/users/logout
+  body: text
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}

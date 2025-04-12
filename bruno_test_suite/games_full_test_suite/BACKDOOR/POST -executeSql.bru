@@ -1,0 +1,15 @@
+meta {
+  name: POST -executeSql
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  SELECT * FROM user;
+}

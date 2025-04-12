@@ -1,0 +1,21 @@
+meta {
+  name: games id wishlist -invalid- -NaN id-
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{BASE_URL}}/games/NOT_AN_ID/wishlist
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 400, 403, or 404", function () {
+      expect(res.getStatus()).to.be.oneOf([400, 403, 404]);
+  });
+}

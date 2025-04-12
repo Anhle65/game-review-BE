@@ -1,0 +1,47 @@
+meta {
+  name: users login
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/users/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "user@bruno.example",
+    "password": "password"
+  }
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Expected response", function() {
+      expect(res.getBody().token).to.be.a('string')
+      expect(res.getBody().userId).to.be.a('number')
+  });
+  
+  test("Set auth_token and user_id after login", function() {
+      const authToken = res.getBody().token;
+      if (typeof authToken !== "undefined") {
+          bru.setGlobalEnvVar("auth_token", authToken);
+          bru.setGlobalEnvVar("test_token", authToken);
+      }
+      const userId = res.getBody().userId;
+      if (typeof userId !== "undefined") {
+          bru.setGlobalEnvVar("user_id", userId);
+      }
+  });
+  
+  
+}

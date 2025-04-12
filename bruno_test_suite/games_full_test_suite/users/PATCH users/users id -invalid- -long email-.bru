@@ -1,0 +1,28 @@
+meta {
+  name: users id -invalid- -long email-
+  type: http
+  seq: 14
+}
+
+patch {
+  url: {{BASE_URL}}/users/1
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "xgQTlmsjfHiRXu9vbJfm5lWJfeKOsM3wkqd3Z8FLNNOttMez5ms3UwmKremDgwM2XdRb0NGu5IyBi0bWth2slIcuzK3LYrLh8swrkQHVEyN2uTqH8YnqGpJN5zcFrfKN7W3bolXBYQeGoHewWm9ZH8KTqAcyZJZhwrXiNbBz9WmzEZEsULynBnYXeDZRqRK1q6ehdE8BAbJZi4WMgxXT43zSJ0DPI14vZnrwcQNlbjEnV0beqbg4kq0vPlX6Us1L6@example.com"
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

@@ -1,0 +1,21 @@
+meta {
+  name: GET games -invalid- -sortBy-
+  type: http
+  seq: 18
+}
+
+get {
+  url: {{BASE_URL}}/games?sortBy=NOT_A_SORT_BY
+  body: none
+  auth: none
+}
+
+params:query {
+  sortBy: NOT_A_SORT_BY
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

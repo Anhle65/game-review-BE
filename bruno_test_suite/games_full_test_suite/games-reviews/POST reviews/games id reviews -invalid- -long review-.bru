@@ -1,0 +1,28 @@
+meta {
+  name: games id reviews -invalid- -long review-
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{BASE_URL}}/games/2/reviews
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+      "rating": 10,
+      "review": "a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description a long description "
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

@@ -1,0 +1,61 @@
+meta {
+  name: GET game genres
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/games/genres
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Expected genre data structure", function() {
+      try{
+          var data = res.getBody()[0];
+          expect(data.genreId).to.be.a("number");
+          expect(data.name).to.be.a("string");
+      } catch(err) {
+          expect.fail("INVALID RESPONSE");
+      }
+  });
+  
+  var expectedData = {
+      "genreId": 1,
+      "name": "Action"
+  };
+  
+  test("Valid genre data (testing genre 1)", function() {
+      try{
+          var data = res.getBody();
+          var genre = data.filter(g => g.genreId === expectedData.genreId)[0];
+          for(const [key, value] of Object.entries(expectedData)) {
+                expect(genre[key]).to.equal(value);
+          }
+      } catch (err) {
+          console.log(err);
+          expect.fail("Incorrect genre data");
+      }
+  });
+  
+  var expectedOrdering = [1,2,10,8,4,9,3,5,7,6];
+  
+  test("Valid ids and ordering", function() {
+      try {
+          var genres = res.getBody();
+          for (var i = 0; i<expectedOrdering.length; i++){
+              if (expectedOrdering[i] !== genres[i].genreId){
+                  expect.fail("Invalid ordering of genres");
+                  break;
+              }
+          }
+      } catch (err) {
+          expect.fail("Invalid ordering of genres (ERROR OCCURRED)");
+      }
+  });
+}

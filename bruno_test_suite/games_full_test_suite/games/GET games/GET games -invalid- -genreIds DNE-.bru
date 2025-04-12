@@ -1,0 +1,21 @@
+meta {
+  name: GET games -invalid- -genreIds DNE-
+  type: http
+  seq: 20
+}
+
+get {
+  url: {{BASE_URL}}/games?genreIds=9999999
+  body: none
+  auth: none
+}
+
+params:query {
+  genreIds: 9999999
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

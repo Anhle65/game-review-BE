@@ -1,0 +1,28 @@
+meta {
+  name: games id reviews -invalid- -NaN id-
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/games/NOT_AN_ID/reviews
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+      "rating": 10,
+      "review": "Game of the year?!?"
+  }
+}
+
+tests {
+  test("Status code is 400 or 404", function () {
+      expect(res.getStatus()).to.be.oneOf([400, 404]);
+  });
+}

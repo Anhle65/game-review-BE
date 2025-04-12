@@ -1,0 +1,76 @@
+meta {
+  name: GET games id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/games/1
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Expected game data structure", function() {
+      try{
+          var data = res.getBody();
+          expect(data.gameId).to.be.a("number");
+          expect(data.title).to.be.a("string");
+          expect(data.genreId).to.be.a("number");
+          expect(data.creationDate).to.be.a("string");
+          expect(data.creatorId).to.be.a("number");
+          expect(data.creatorFirstName).to.be.a("string");
+          expect(data.creatorLastName).to.be.a("string");
+          expect(data.price).to.be.a("number");
+          expect(data.rating).to.be.a("number");
+          expect(data.platformIds).to.be.an("array");
+          expect(data.description).to.be.a("string");
+          expect(data.numberOfWishlists).to.be.a("number");
+          expect(data.numberOfOwners).to.be.a("number");
+      } catch(err) {
+          console.log(err);
+          expect.fail("INVALID RESPONSE");
+      }
+  });
+  
+  var expectedData = {
+      "gameId": 1,
+      "title": "Battle Quest",
+      "description": "A high-stakes action game set in a mythical world.",
+      "genreId": 1,
+      "creationDate": "2024-10-15T01:30:00.000Z",
+      "creatorId": 1,
+      "price": 0,
+      "creatorFirstName": "Kristy",
+      "creatorLastName": "Lincoln",
+      "rating": 7.5,
+      "platformIds": [
+        1,
+        2,
+        3
+      ],
+      "numberOfWishlists": 2,
+      "numberOfOwners": 1
+  };
+  
+  test("Valid game data", function() {
+      try{
+          var game = res.getBody();
+          for(const [key, value] of Object.entries(expectedData)) {
+              if (Array.isArray(value)) {
+                  // special case for arrays since generalised equality check is deep and will fail on arrays
+                  expect(game[key]).to.be.an("array").and.to.have.ordered.members(value);
+              } else {
+                  expect(game[key]).to.equal(value);
+              }
+          }
+      } catch (err) {
+          console.log(err);
+          expect.fail("Incorrect game data");
+      }
+  });
+}

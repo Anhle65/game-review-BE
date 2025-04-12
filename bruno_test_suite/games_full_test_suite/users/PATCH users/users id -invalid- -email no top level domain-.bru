@@ -1,0 +1,28 @@
+meta {
+  name: users id -invalid- -email no top level domain-
+  type: http
+  seq: 16
+}
+
+patch {
+  url: {{BASE_URL}}/users/1
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "notan@email"
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

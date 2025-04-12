@@ -1,0 +1,21 @@
+meta {
+  name: games id owned -already wishlisted-
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{BASE_URL}}/games/11/owned
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}

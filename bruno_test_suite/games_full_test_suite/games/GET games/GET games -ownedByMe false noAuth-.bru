@@ -1,0 +1,33 @@
+meta {
+  name: GET games -ownedByMe false noAuth-
+  type: http
+  seq: 35
+}
+
+get {
+  url: {{BASE_URL}}/games?ownedByMe=false
+  body: none
+  auth: none
+}
+
+params:query {
+  ownedByMe: false
+}
+
+tests {
+  const expectedNumGames = 22;
+  
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Valid game list length and count", function() {
+      try {
+          var data = res.getBody();
+          expect(data.games.length).to.equal(expectedNumGames);
+          expect(data.count).to.equal(expectedNumGames);
+      } catch (err) {
+          expect.fail(`Incorrect number of games or count`);
+      }
+  });
+}

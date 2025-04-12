@@ -1,0 +1,33 @@
+meta {
+  name: GET games -wishlistedByMe false noAuth-
+  type: http
+  seq: 38
+}
+
+get {
+  url: {{BASE_URL}}/games?wishlistedByMe=false
+  body: none
+  auth: none
+}
+
+params:query {
+  wishlistedByMe: false
+}
+
+tests {
+  const expectedNumGames = 22;
+  
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Valid game list length and count", function() {
+      try {
+          var data = res.getBody();
+          expect(data.games.length).to.equal(expectedNumGames);
+          expect(data.count).to.equal(expectedNumGames);
+      } catch (err) {
+          expect.fail(`Incorrect number of games or count`);
+      }
+  });
+}

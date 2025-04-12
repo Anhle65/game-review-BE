@@ -1,0 +1,44 @@
+meta {
+  name: users id -invalid- -other user no auth-
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{BASE_URL}}/users/2
+  body: none
+  auth: none
+}
+
+tests {
+  var expectedData = {
+    "firstName": "Chidi",
+    "lastName": "Anagonye"
+  }
+  
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Valid user data", function() {
+      try{
+          var user = res.getBody();
+          for(const [key, value] of Object.entries(expectedData)) {
+              expect(user[key]).to.equal(value);
+          }
+      } catch (err) {
+          expect.fail("Incorrect user data");
+      }
+  });
+  
+  test("Email not returned", function() {
+      try {
+          var user = res.getBody();
+          if (user.hasOwnProperty('email')){
+              expect.fail("Email must not be returned")
+          }
+      } catch (err) {
+          expect.fail("Incorrect user data");
+      }
+  })
+}

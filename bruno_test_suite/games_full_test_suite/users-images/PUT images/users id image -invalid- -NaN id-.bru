@@ -1,0 +1,22 @@
+meta {
+  name: users id image -invalid- -NaN id-
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{BASE_URL}}/users/NotANumber/image
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: image/jpeg
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 400, 403, or 404", function () {
+      expect(res.getStatus()).to.be.oneOf([400, 403, 404]);
+  });
+}

@@ -1,0 +1,21 @@
+meta {
+  name: POST game -invalid- -invalid auth-
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/games
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: NOT_AN_AUTH_TOKEN
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+}

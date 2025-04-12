@@ -1,0 +1,21 @@
+meta {
+  name: games id image -invalid- -no auth-
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{BASE_URL}}/games/1/image
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: image/jpeg
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+}

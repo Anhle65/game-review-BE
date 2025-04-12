@@ -1,0 +1,26 @@
+meta {
+  name: _setup -register user-
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/users/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName": "Bruno",
+    "lastName": "User",
+    "email": "user@bruno.example",
+    "password": "password"
+  }
+}
+
+tests {
+  test("Registered test user successfully", function() {
+      expect(res.getBody().userId).to.be.a('number')
+  });
+}

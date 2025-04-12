@@ -1,0 +1,15 @@
+meta {
+  name: _setup -set auth token-
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  UPDATE user SET auth_token='token' where id=1;
+}

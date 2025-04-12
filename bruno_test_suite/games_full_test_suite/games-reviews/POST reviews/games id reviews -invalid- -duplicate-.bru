@@ -1,0 +1,28 @@
+meta {
+  name: games id reviews -invalid- -duplicate-
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{BASE_URL}}/games/2/reviews
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+      "rating": 10,
+      "review": "Game of the year?!?"
+  }
+}
+
+tests {
+  test("Status code is 403", function () {
+      expect(res.getStatus()).to.equal(403);
+  });
+}

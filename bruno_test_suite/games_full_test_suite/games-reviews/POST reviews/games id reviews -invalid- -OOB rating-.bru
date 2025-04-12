@@ -1,0 +1,28 @@
+meta {
+  name: games id reviews -invalid- -OOB rating-
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{BASE_URL}}/games/2/reviews
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+      "rating": 11,
+      "review": "Game of the year?!?"
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

@@ -1,0 +1,41 @@
+meta {
+  name: _validate -wishlist removed and owned added-
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  SELECT * FROM wishlist WHERE game_id=11;
+  SELECT * FROM owned WHERE game_id=11;
+}
+
+tests {
+  test("user 1 no longer wishlists", function() {
+      try{
+        console.log(res.getBody())
+          var wishlists = res.getBody()[0];
+          const entry = wishlists.find((item) => item.user_id === 1)
+          expect(entry).to.equal(undefined);
+      } catch (err) {
+          console.log(err);
+          expect.fail("Error getting wishlist data");
+      }
+  });
+  
+  test("user 1 now owns", function() {
+      try{
+          var owned = res.getBody()[1];
+          const entry = owned.find((item) => item.user_id === 1)
+          expect(entry).to.not.equal(undefined);
+      } catch (err) {
+          console.log(err);
+          expect.fail("Error getting owned data");
+      }
+  });
+}

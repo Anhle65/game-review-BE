@@ -1,0 +1,46 @@
+meta {
+  name: _validate GET user
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/users/{{CREATED_USER_ID}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "firstName": "Mike",
+    "lastName": "Wheeler",
+    "email": "mike.wheeler@hawkinsmiddle.school.us",
+    "password": "password"
+  }
+}
+
+tests {
+  var expectedData = {
+    "firstName": "Bruno",
+    "lastName": "User"
+  }
+  
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Valid user data", function() {
+      try{
+          var user = res.getBody();
+          for(const [key, value] of Object.entries(expectedData)) {
+              expect(user[key]).to.equal(value);
+          }
+      } catch (err) {
+          expect.fail("Incorrect user data");
+      }
+  });
+}

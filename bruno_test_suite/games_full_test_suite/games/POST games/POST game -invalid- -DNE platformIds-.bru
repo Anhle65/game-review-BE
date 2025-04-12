@@ -1,0 +1,38 @@
+meta {
+  name: POST game -invalid- -DNE platformIds-
+  type: http
+  seq: 18
+}
+
+post {
+  url: {{BASE_URL}}/games
+  body: json
+  auth: none
+}
+
+params:query {
+  : 
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+    "title": "A game from bruno",
+    "description": "A game from bruno",
+    "genreId": 1,
+    "price": 1499,
+    "platformIds": [
+      1,
+      99999
+    ]
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

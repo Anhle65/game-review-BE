@@ -1,0 +1,32 @@
+meta {
+  name: _helper -check reviews-
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{BASE_URL}}/games/2/reviews
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("new review exists", function() {
+      try{
+          var new_review = res.getBody().filter(r => r.reviewerId === 1)[0];
+          expect(new_review.reviewerId).to.equal(1);
+          expect(new_review.reviewerFirstName).to.equal("Kristy");
+          expect(new_review.reviewerLastName).to.equal("Lincoln");
+          expect(new_review.rating).to.equal(10);
+          expect(new_review.review).to.equal("Game of the year?!?");
+          expect(new_review.timestamp).to.be.a("string");
+      } catch(err) {
+        console.log(err)
+          expect.fail("INVALID RESPONSE");
+      }
+  });
+}

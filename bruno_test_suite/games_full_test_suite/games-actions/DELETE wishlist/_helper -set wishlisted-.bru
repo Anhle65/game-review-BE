@@ -1,0 +1,15 @@
+meta {
+  name: _helper -set wishlisted-
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  INSERT INTO wishlist (game_id, user_id) VALUES (11, 1);
+}

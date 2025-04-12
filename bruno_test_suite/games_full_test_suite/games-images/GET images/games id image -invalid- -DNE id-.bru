@@ -1,0 +1,17 @@
+meta {
+  name: games id image -invalid- -DNE id-
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{BASE_URL}}/games/9999999/image
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 404", function () {
+      expect(res.getStatus()).to.equal(404);
+  });
+}

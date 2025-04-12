@@ -1,0 +1,16 @@
+meta {
+  name: _helper -change auth token user-
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  UPDATE user SET auth_token=NULL where id=1;
+  UPDATE user SET auth_token='token' where id=3;
+}

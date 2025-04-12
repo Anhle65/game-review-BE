@@ -1,0 +1,28 @@
+meta {
+  name: _validate -wishlist removed-
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  SELECT * FROM wishlist WHERE game_id=11;
+}
+
+tests {
+  test("user 1 no longer wishlists", function() {
+      try{
+          var wishlisted = res.getBody();
+          const entry = wishlisted.find((item) => item.user_id === 1)
+          expect(entry).to.equal(undefined);
+      } catch (err) {
+          console.log(err);
+          expect.fail("Error getting owned data");
+      }
+  });
+}

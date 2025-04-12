@@ -1,0 +1,21 @@
+meta {
+  name: GET games -invalid- -platformIds DNE-
+  type: http
+  seq: 22
+}
+
+get {
+  url: {{BASE_URL}}/games?platformIds=9999999
+  body: none
+  auth: none
+}
+
+params:query {
+  platformIds: 9999999
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

@@ -1,0 +1,39 @@
+meta {
+  name: games id image -update existing png-
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{BASE_URL}}/games/1/image
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+script:pre-request {
+  try {
+      const fs = require("fs");
+      const path = require('path');
+  
+      const attachmentFilename = "sample.png";
+      const attachmentPath = path.join(bru.cwd(), attachmentFilename);
+      const attachment = fs.readFileSync(attachmentPath);
+      const attachmentLength = attachment.length;
+    
+      req.setHeader("Content-Type", "image/png");
+      req.setHeader("Content-Length", attachmentLength);
+      req.setBody(attachment);
+  } catch (err) {
+      console.log(err);
+  }
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}

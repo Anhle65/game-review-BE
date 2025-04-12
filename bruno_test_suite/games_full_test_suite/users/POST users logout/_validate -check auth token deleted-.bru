@@ -1,0 +1,26 @@
+meta {
+  name: _validate -check auth token deleted-
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  SELECT auth_token from user where id=1;
+}
+
+tests {
+  test("auth_token is now null", function() {
+      try{
+          var response = res.getBody();
+          expect(response[0].auth_token).to.equal(null);
+      } catch (err) {
+          expect.fail("Auth token not set to null");
+      }
+  });
+}

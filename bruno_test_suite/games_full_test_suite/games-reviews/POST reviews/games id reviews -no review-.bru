@@ -1,0 +1,27 @@
+meta {
+  name: games id reviews -no review-
+  type: http
+  seq: 15
+}
+
+post {
+  url: {{BASE_URL}}/games/2/reviews
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+      "rating": 10
+  }
+}
+
+tests {
+  test("Status code is 201", function () {
+      expect(res.getStatus()).to.equal(201);
+  });
+}

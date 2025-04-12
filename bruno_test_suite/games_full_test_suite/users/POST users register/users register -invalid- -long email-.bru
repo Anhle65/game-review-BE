@@ -1,0 +1,30 @@
+meta {
+  name: users register -invalid- -long email-
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{BASE_URL}}/users/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "firstName": "John",
+  	"lastName": "Johnson",
+      "email": "jXeWxtnx9IBKwrL8vJCX8BjoIFaX0HP3pJGvFHsDRGg2QwKVSbVwg3NPwiwr0onEXIlz3oxaSvSsB2cgsnF7vzNSBaOtRe0YK5S6GI9SM7FFqQjYN5K9UZyeAlKT1hllaN5R0hymnKodY8v38jRdxhCU9NWcsTxViccsClLw18EJzX7q77f4yRMA5jOtWeCUHa7fs8UZWMb1XgyvCeo8e1JNmh73exNBMTB6KDx3NmaWqMYyZCr0q4w3ap1jdC1fz@example.com",
+  	"password": "ranger"
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

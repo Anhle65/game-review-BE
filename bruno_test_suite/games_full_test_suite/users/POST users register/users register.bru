@@ -1,0 +1,42 @@
+meta {
+  name: users register
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/users/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "firstName": "Bruno",
+    "lastName": "User",
+    "email": "user@bruno.example",
+    "password": "password"
+  }
+}
+
+tests {
+  test("Status code is 201", function () {
+      expect(res.getStatus()).to.equal(201);
+  });
+  
+  test("Expected response", function() {
+      expect(res.getBody().userId).to.be.a('number')
+  });
+  
+  test("Set created_user_id", function() {
+      const userId = res.getBody().userId;
+      console.log(`userID: ${userId}`)
+      if (typeof userId !== "undefined") {
+          bru.setEnvVar("CREATED_USER_ID", userId);
+      }
+  });
+}

@@ -1,0 +1,21 @@
+meta {
+  name: users id image -invalid- -no auth-
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{BASE_URL}}/users/1/image
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: image/jpeg
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+}

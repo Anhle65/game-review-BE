@@ -1,0 +1,21 @@
+meta {
+  name: games id wishlist -invalid- -alreadyOwned-
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{BASE_URL}}/games/5/wishlist
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 403", function () {
+      expect(res.getStatus()).to.equal(403);
+  });
+}

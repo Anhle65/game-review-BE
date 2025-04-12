@@ -1,0 +1,59 @@
+meta {
+  name: GET games -price-
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{BASE_URL}}/games?price=4000
+  body: none
+  auth: none
+}
+
+params:query {
+  price: 4000
+}
+
+tests {
+  const expectedNumGames = 15;
+  const expectedCountGames = 15;
+  
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Valid game list length", function() {
+      try {
+          var data = res.getBody();
+          expect(data.games.length).to.equal(expectedNumGames);
+      } catch (err) {
+          expect.fail(`Incorrect number of games returned expected ${expectedNumGames} got ${res.getBody().games.length}`);
+      }
+  });
+  
+  test("Valid game count", function() {
+      try {
+          var data = res.getBody();
+          expect(data.count).to.equal(expectedCountGames);
+      } catch (err) {
+          expect.fail(`Incorrect games count expected ${expectedCountGames} got ${res.getBody().games.length}`);
+      }
+  });
+  
+  var expectedOrdering = [11,12,14,19,9,8,18,15,7,17,6,5,4,1,2];
+  
+  test("Valid ids and ordering", function() {
+      try {
+          var games = res.getBody().games;
+          // console.log(`games [${games.map(p => p.gameId)}]`);
+          for (var i = 0; i<expectedOrdering.length; i++){
+              if (expectedOrdering[i] !== games[i].gameId){
+                  expect.fail("Invalid ordering of games");
+                  break;
+              }
+          }
+      } catch (err) {
+          expect.fail("Invalid ordering of games (ERROR OCCURRED)");
+      }
+  });
+}

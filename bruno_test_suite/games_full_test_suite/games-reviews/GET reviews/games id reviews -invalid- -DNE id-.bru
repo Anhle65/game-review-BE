@@ -1,0 +1,17 @@
+meta {
+  name: games id reviews -invalid- -DNE id-
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{BASE_URL}}/games/99999999/reviews
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 404", function () {
+      expect(res.getStatus()).to.equal(404);
+  });
+}

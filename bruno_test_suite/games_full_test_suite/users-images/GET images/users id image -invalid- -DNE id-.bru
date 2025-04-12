@@ -1,0 +1,17 @@
+meta {
+  name: users id image -invalid- -DNE id-
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{BASE_URL}}/users/99999999/image
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 404", function () {
+      expect(res.getStatus()).to.equal(404);
+  });
+}

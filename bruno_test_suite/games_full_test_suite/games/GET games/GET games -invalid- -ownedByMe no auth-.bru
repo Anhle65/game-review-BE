@@ -1,0 +1,21 @@
+meta {
+  name: GET games -invalid- -ownedByMe no auth-
+  type: http
+  seq: 31
+}
+
+get {
+  url: {{BASE_URL}}/games?ownedByMe=true
+  body: none
+  auth: none
+}
+
+params:query {
+  ownedByMe: true
+}
+
+tests {
+  test("Status code is 400 or 403", function () {
+      expect(res.getStatus()).to.be.oneOf([400, 403]);
+  });
+}

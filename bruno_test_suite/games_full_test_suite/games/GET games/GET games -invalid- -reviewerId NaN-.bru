@@ -1,0 +1,21 @@
+meta {
+  name: GET games -invalid- -reviewerId NaN-
+  type: http
+  seq: 27
+}
+
+get {
+  url: {{BASE_URL}}/games?reviewerId=NOT_A_REVIEWERID
+  body: none
+  auth: none
+}
+
+params:query {
+  reviewerId: NOT_A_REVIEWERID
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

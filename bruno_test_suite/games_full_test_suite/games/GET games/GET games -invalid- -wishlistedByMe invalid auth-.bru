@@ -1,0 +1,25 @@
+meta {
+  name: GET games -invalid- -wishlistedByMe invalid auth-
+  type: http
+  seq: 30
+}
+
+get {
+  url: {{BASE_URL}}/games?wishlistedByMe=true
+  body: none
+  auth: none
+}
+
+params:query {
+  wishlistedByMe: true
+}
+
+headers {
+  X-Authorization: NOT_AN_AUTH_TOKEN
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+}

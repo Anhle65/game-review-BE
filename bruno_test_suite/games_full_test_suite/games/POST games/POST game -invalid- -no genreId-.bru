@@ -1,0 +1,36 @@
+meta {
+  name: POST game -invalid- -no genreId-
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{BASE_URL}}/games
+  body: json
+  auth: none
+}
+
+params:query {
+  : 
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+    "title": "A game from bruno",
+    "description": "A game from bruno",
+    "price": 1499,
+    "platformIds": [
+      1
+    ]
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

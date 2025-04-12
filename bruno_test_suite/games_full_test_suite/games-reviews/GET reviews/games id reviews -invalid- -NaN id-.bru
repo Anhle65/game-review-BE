@@ -1,0 +1,17 @@
+meta {
+  name: games id reviews -invalid- -NaN id-
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/games/NOT_AN_ID/reviews
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 400 or 404", function () {
+      expect(res.getStatus()).to.be.oneOf([400, 404]);
+  });
+}

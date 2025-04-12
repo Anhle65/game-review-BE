@@ -1,0 +1,21 @@
+meta {
+  name: GET games -invalid- -price NaN-
+  type: http
+  seq: 23
+}
+
+get {
+  url: {{BASE_URL}}/games?price=NOT_A_PRICE
+  body: none
+  auth: none
+}
+
+params:query {
+  price: NOT_A_PRICE
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

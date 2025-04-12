@@ -1,0 +1,21 @@
+meta {
+  name: GET games -invalid- -creatorId NaN-
+  type: http
+  seq: 25
+}
+
+get {
+  url: {{BASE_URL}}/games?creatorId=NOT_AN_creatorId
+  body: none
+  auth: none
+}
+
+params:query {
+  creatorId: NOT_AN_creatorId
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

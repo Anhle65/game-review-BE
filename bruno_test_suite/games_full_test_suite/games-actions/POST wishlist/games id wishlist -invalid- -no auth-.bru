@@ -1,0 +1,17 @@
+meta {
+  name: games id wishlist -invalid- -no auth-
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{BASE_URL}}/games/5/wishlist
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+}

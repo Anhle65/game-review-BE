@@ -1,0 +1,30 @@
+meta {
+  name: users register -invalid- -email no at-
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{BASE_URL}}/users/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+  	"firstName": "Lucas",
+  	"lastName": "Sinclair",
+  	"email": "lucassinclair.gmail.com",
+  	"password": "ranger"
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

@@ -1,0 +1,28 @@
+meta {
+  name: users id -invalid- -long lastName-
+  type: http
+  seq: 12
+}
+
+patch {
+  url: {{BASE_URL}}/users/1
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "lastName": "CrairCnNdCOKV4RYUSW1MYzD0gCnS7n0j9b74fsUK0et3buOn1VLvIietHid6Er4p"
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

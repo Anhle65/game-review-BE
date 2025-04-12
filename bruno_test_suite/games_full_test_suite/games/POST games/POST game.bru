@@ -1,0 +1,49 @@
+meta {
+  name: POST game
+  type: http
+  seq: 19
+}
+
+post {
+  url: {{BASE_URL}}/games
+  body: json
+  auth: none
+}
+
+params:query {
+  : 
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+    "title": "A game from bruno",
+    "description": "A game from bruno",
+    "genreId": 1,
+    "price": 1499,
+    "platformIds": [
+      1
+    ]
+  }
+}
+
+tests {
+  test("Status code is 201", function () {
+      expect(res.getStatus()).to.equal(201);
+  });
+  
+  test("petitionId is returned", function () {
+      expect(res.getBody().gameId).to.be.a("number")
+  })
+  
+  test("Set created_game_id", function() {
+      const gameId = res.getBody().gameId;
+      console.log(`gameID: ${gameId}`)
+      if (typeof gameId !== "undefined") {
+          bru.setEnvVar("CREATED_GAME_ID", gameId);
+      }
+  });
+}

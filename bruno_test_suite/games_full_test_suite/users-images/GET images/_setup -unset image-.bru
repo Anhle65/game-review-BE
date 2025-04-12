@@ -1,0 +1,15 @@
+meta {
+  name: _setup -unset image-
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  UPDATE user SET image_filename=NULL WHERE id=1;
+}

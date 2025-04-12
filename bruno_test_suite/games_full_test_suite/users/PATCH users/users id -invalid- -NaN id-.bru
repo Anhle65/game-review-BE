@@ -1,0 +1,29 @@
+meta {
+  name: users id -invalid- -NaN id-
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{BASE_URL}}/users/NotANumber
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "password": "new secure password",
+    "currentPassword": "password"
+  }
+}
+
+tests {
+  test("Status code is 400, 403, or 404", function () {
+      expect(res.getStatus()).to.be.oneOf([400, 403, 404]);
+  });
+}

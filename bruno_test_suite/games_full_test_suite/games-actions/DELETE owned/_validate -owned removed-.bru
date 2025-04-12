@@ -1,0 +1,28 @@
+meta {
+  name: _validate -owned removed-
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  SELECT * FROM owned WHERE game_id=11;
+}
+
+tests {
+  test("user 1 no longer owns", function() {
+      try{
+          var owned = res.getBody();
+          const entry = owned.find((item) => item.user_id === 1)
+          expect(entry).to.equal(undefined);
+      } catch (err) {
+          console.log(err);
+          expect.fail("Error getting owned data");
+      }
+  });
+}

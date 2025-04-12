@@ -1,0 +1,17 @@
+meta {
+  name: GET games id -invalid- -NaN id-
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/games/NOT_AN_ID
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

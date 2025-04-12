@@ -1,0 +1,61 @@
+meta {
+  name: GET game platforms
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/games/platforms
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Expected platform data structure", function() {
+      try{
+          var data = res.getBody()[0];
+          expect(data.platformId).to.be.a("number");
+          expect(data.name).to.be.a("string");
+      } catch(err) {
+          expect.fail("INVALID RESPONSE");
+      }
+  });
+  
+  var expectedData = {
+      "platformId": 1,
+      "name": "PC"
+  };
+  
+  test("Valid platform data (testing platform 1)", function() {
+      try{
+          var data = res.getBody();
+          var platform = data.filter(p => p.platformId === expectedData.platformId)[0];
+          for(const [key, value] of Object.entries(expectedData)) {
+                expect(platform[key]).to.equal(value);
+          }
+      } catch (err) {
+          console.log(err);
+          expect.fail("Incorrect platform data");
+      }
+  });
+  
+  var expectedOrdering = [5,4,1,3,2];
+  
+  test("Valid ids and ordering", function() {
+      try {
+          var platforms = res.getBody();
+          for (var i = 0; i<expectedOrdering.length; i++){
+              if (expectedOrdering[i] !== platforms[i].platformId){
+                  expect.fail("Invalid ordering of platforms");
+                  break;
+              }
+          }
+      } catch (err) {
+          expect.fail("Invalid ordering of platforms (ERROR OCCURRED)");
+      }
+  });
+}

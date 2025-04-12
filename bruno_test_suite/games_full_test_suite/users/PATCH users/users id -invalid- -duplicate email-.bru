@@ -1,0 +1,28 @@
+meta {
+  name: users id -invalid- -duplicate email-
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{BASE_URL}}/users/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  X-Authorization: token
+}
+
+body:json {
+  {
+    "email": "m@m.com"
+  }
+}
+
+tests {
+  test("Status code is 403", function () {
+      expect(res.getStatus()).to.equal(403);
+  });
+}

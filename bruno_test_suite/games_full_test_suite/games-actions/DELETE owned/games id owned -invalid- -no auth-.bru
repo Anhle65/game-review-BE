@@ -1,0 +1,17 @@
+meta {
+  name: games id owned -invalid- -no auth-
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{BASE_URL}}/games/5/owned
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+}

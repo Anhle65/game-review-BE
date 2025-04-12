@@ -1,0 +1,22 @@
+meta {
+  name: users logout -invalid- -bad auth-
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{BASE_URL}}/users/logout
+  body: text
+  auth: none
+}
+
+headers {
+  X_Authorization: NOT_AN_AUTH_TOKEN
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+  
+}

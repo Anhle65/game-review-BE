@@ -1,0 +1,30 @@
+meta {
+  name: users login -invalid- -incorrect email-
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{BASE_URL}}/users/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "not_a_registered_email@email.com",
+    "password": "password"
+  }
+}
+
+tests {
+  test("Status code is 401", function () {
+      expect(res.getStatus()).to.equal(401);
+  });
+  
+  
+}

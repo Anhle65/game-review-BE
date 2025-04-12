@@ -1,0 +1,21 @@
+meta {
+  name: GET games -invalid- -platformIds NaN-
+  type: http
+  seq: 21
+}
+
+get {
+  url: {{BASE_URL}}/games?platformIds=NOT_A_PLATFORMID
+  body: none
+  auth: none
+}
+
+params:query {
+  platformIds: NOT_A_PLATFORMID
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

@@ -1,0 +1,18 @@
+meta {
+  name: users id image -no image yet-
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/users/1/image
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 404", function () {
+      expect(res.getStatus()).to.equal(404);
+  });
+  
+}

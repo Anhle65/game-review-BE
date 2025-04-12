@@ -1,0 +1,67 @@
+meta {
+  name: _validate GET game
+  type: http
+  seq: 20
+}
+
+get {
+  url: {{BASE_URL}}/games/{{CREATED_GAME_ID}}
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+    "title": "A game from bruno",
+    "description": "A game from bruno",
+    "genreId": 1,
+    "price": 1499,
+    "platformIds": [
+      1
+    ]
+  }
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  var expectedData = {
+    // id and creation date not tested
+    "title": "A game from bruno",
+    "description": "A game from bruno",
+    "genreId": 1,
+    "creatorId": 1,
+    "price": 1499,
+    "creatorFirstName": "Kristy",
+    "creatorLastName": "Lincoln",
+    "rating": 0,
+    "platformIds": [
+      1
+    ],
+    "numberOfWishlists": 0,
+    "numberOfOwners": 0
+  };
+  
+  test("Valid game data", function() {
+      try{
+          var game = res.getBody();
+          for(const [key, value] of Object.entries(expectedData)) {
+              if (Array.isArray(value)) {
+                  // special case for arrays since generalised equality check is deep and will fail on arrays
+                  expect(game[key]).to.be.an("array").and.to.have.ordered.members(value);
+              } else {
+                  expect(game[key]).to.equal(value);
+              }
+          }
+      } catch (err) {
+          console.log(err);
+          expect.fail("Incorrect game data");
+      }
+  });
+}

@@ -1,0 +1,37 @@
+meta {
+  name: POST game -invalid- -long title-
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{BASE_URL}}/games
+  body: json
+  auth: none
+}
+
+params:query {
+  : 
+}
+
+headers {
+  X-Authorization: token
+}
+
+body:json {
+  {
+    "title": "a long title a long title a long title a long title a long title a long title a long title a long title a long title a long title ",
+    "description": "A game from bruno",
+    "genreId": 1,
+    "price": 1499,
+    "platformIds": [
+      1
+    ]
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

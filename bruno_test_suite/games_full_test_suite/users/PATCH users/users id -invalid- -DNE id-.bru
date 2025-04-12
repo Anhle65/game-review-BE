@@ -1,0 +1,29 @@
+meta {
+  name: users id -invalid- -DNE id-
+  type: http
+  seq: 19
+}
+
+patch {
+  url: {{BASE_URL}}/users/999999999
+  body: json
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Eleven",
+    "email": "el@hawkinslab.com"
+  }
+}
+
+tests {
+  test("Status code is 404 or 403", function () {
+      expect(res.getStatus()).to.be.oneOf([404, 403]);
+  });
+}

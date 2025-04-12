@@ -1,0 +1,39 @@
+meta {
+  name: users id image -invalid- -bmp-
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{BASE_URL}}/users/1/image
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+script:pre-request {
+  try {
+      const fs = require("fs");
+      const path = require('path');
+  
+      const attachmentFilename = "sample.bmp";
+      const attachmentPath = path.join(bru.cwd(), attachmentFilename);
+      const attachment = fs.readFileSync(attachmentPath);
+      const attachmentLength = attachment.length;
+    
+      req.setHeader("Content-Type", "image/bmp");
+      req.setHeader("Content-Length", attachmentLength);
+      req.setBody(attachment);
+  } catch (err) {
+      console.log(err);
+  }
+}
+
+tests {
+  test("Status code is 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+}

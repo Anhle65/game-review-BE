@@ -1,0 +1,29 @@
+meta {
+  name: _validate -wishlist added-
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  SELECT * FROM wishlist WHERE game_id=10;
+}
+
+tests {
+  test("user 1 now wishlists", function() {
+      try{
+        console.log(res.getBody())
+          var wishlists = res.getBody();
+          const entry = wishlists.find((item) => item.user_id === 1)
+          expect(entry).to.not.equal(undefined);
+      } catch (err) {
+          console.log(err);
+          expect.fail("Error getting wishlist data");
+      }
+  });
+}

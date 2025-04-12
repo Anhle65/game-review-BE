@@ -1,0 +1,38 @@
+meta {
+  name: _validate users id -me-
+  type: http
+  seq: 21
+}
+
+get {
+  url: {{BASE_URL}}/users/1
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+tests {
+  var expectedData = {
+      "firstName": "bruno",
+      "lastName": "user",
+      "email": "bruno@example.com"
+  }
+  
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Valid user data", function() {
+      try{
+          var user = res.getBody();
+          for(const [key, value] of Object.entries(expectedData)) {
+              expect(user[key]).to.equal(value);
+          }
+      } catch (err) {
+          expect.fail("Incorrect user data");
+      }
+  });
+}

@@ -1,0 +1,15 @@
+meta {
+  name: _helper -set image jpeg-
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/executeSql
+  body: text
+  auth: none
+}
+
+body:text {
+  UPDATE user SET image_filename="user_1.jpg" WHERE id=1;
+}

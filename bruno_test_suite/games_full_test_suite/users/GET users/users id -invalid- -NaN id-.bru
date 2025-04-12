@@ -1,0 +1,21 @@
+meta {
+  name: users id -invalid- -NaN id-
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{BASE_URL}}/users/NotANumber
+  body: none
+  auth: none
+}
+
+headers {
+  X-Authorization: token
+}
+
+tests {
+  test("Status code is 400 or 404", function () {
+      expect(res.getStatus()).to.be.oneOf([400, 404]);
+  });
+}

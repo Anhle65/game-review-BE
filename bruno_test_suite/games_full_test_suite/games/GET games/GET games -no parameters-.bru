@@ -1,0 +1,105 @@
+meta {
+  name: GET games -no parameters-
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/games
+  body: none
+  auth: none
+}
+
+tests {
+  const expectedNumGames = 22;
+  
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Valid game list length", function() {
+      try {
+          var data = res.getBody();
+          expect(data.games.length).to.equal(expectedNumGames);
+      } catch (err) {
+          expect.fail(`Incorrect number of games returned expected ${expectedNumGames} got ${res.getBody().games.length}`);
+      }
+  });
+  
+  test("Valid game count", function() {
+      try {
+          var data = res.getBody();
+          expect(data.count).to.equal(expectedNumGames);
+      } catch (err) {
+          expect.fail(`Incorrect games count expected ${expectedNumGames} got ${res.getBody().games.length}`);
+      }
+  });
+  
+  var expectedOrdering = [21,11,12,20,14,10,19,9,16,8,18,15,7,17,6,13,5,4,22,1,2,3];
+  
+  test("Valid ids and ordering", function() {
+      try {
+          var games = res.getBody().games;
+          // console.log(`games [${games.map(p => p.gameId)}]`);
+          for (var i = 0; i<expectedOrdering.length; i++){
+              if (expectedOrdering[i] !== games[i].gameId){
+                  expect.fail("Invalid ordering of games");
+                  break;
+              }
+          }
+      } catch (err) {
+          expect.fail("Invalid ordering of games (ERROR OCCURRED)");
+      }
+  });
+  
+  test("Expected game data structure", function() {
+      try{
+          var data = res.getBody().games[0];
+          expect(data.gameId).to.be.a("number");
+          expect(data.title).to.be.a("string");
+          expect(data.genreId).to.be.a("number");
+          expect(data.creatorId).to.be.a("number");
+          expect(data.creatorFirstName).to.be.a("string");
+          expect(data.creatorLastName).to.be.a("string");
+          expect(data.price).to.be.a("number");
+          expect(data.rating).to.be.a("number");
+          expect(data.platformIds).to.be.an("array");
+      } catch(err) {
+          expect.fail("INVALID RESPONSE");
+      }
+  });
+  
+  var expectedData = {
+      "gameId": 21,
+      "title": "Alien Invasion",
+      "genreId": 1,
+      "creationDate": "2024-01-13T21:20:00.000Z",
+      "creatorId": 1,
+      "price": 5299,
+      "creatorFirstName": "Kristy",
+      "creatorLastName": "Lincoln",
+      "rating": 0,
+      "platformIds": [
+          1,
+          3
+      ]
+  };
+  
+  test("Valid game data (testing game 21)", function() {
+      try{
+          var data = res.getBody();
+          var game = data.games.filter(g => g.gameId === expectedData.gameId)[0];
+          for(const [key, value] of Object.entries(expectedData)) {
+              if (Array.isArray(value)) {
+                  // special case for arrays since generalised equality check is deep and will fail on arrays
+                  expect(game[key]).to.be.an("array").and.to.have.ordered.members(value);
+              } else {
+                  expect(game[key]).to.equal(value);
+              }
+          }
+      } catch (err) {
+          console.log(err);
+          expect.fail("Incorrect game data");
+      }
+  });
+}
