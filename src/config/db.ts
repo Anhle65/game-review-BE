@@ -17,9 +17,9 @@ const connect = async (): Promise<void> => {
         database: process.env.SENG365_MYSQL_DATABASE,
         port: parseInt(process.env.SENG365_MYSQL_PORT,10) || 3306,
         // uncomment below if using db1/db2
-        // ssl: {
-        //     rejectUnauthorized: false
-        // }
+        ssl: {
+            rejectUnauthorized: false
+        }
     } );
     await state.pool.getConnection(); // Check connection
     Logger.info(`Successfully connected to database`)
