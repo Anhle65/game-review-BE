@@ -222,7 +222,7 @@ const editGame = async(req: Request, res: Response): Promise<void> => {
                 res.status(400).send();
                 return;
             } else {
-                genreId = req.body.categoryId;
+                genreId = req.body.genreId;
             }
         }
 
