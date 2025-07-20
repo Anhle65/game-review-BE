@@ -30,6 +30,7 @@ RUN apk add --no-cache make gcc g++ python3 && \
     apk del make gcc g++ python3
 
 COPY --from=build /usr/src/app/dist ./dist
+COPY src/app/resources ./src/app/resources
 
 EXPOSE 4941
 CMD [ "node", "dist/server.js" ]
