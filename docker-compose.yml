@@ -2,10 +2,10 @@ services:
   app:
     build:
       context: .
+    volumes:
+      - ./storage:/usr/app/storage
     env_file:
       - .env
     ports:
       - "${PORT}:${PORT}"
-    networks:
-      - app-network
     command: [ "node", "dist/server.js" ]
