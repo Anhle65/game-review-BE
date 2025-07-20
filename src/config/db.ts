@@ -11,15 +11,12 @@ const connect = async (): Promise<void> => {
     state.pool = mysql.createPool( {
         connectionLimit: 100,
         multipleStatements: true,
-        host: process.env.SENG365_MYSQL_HOST,
-        user: process.env.SENG365_MYSQL_USER,
-        password: process.env.SENG365_MYSQL_PASSWORD,
-        database: process.env.SENG365_MYSQL_DATABASE,
-        port: parseInt(process.env.SENG365_MYSQL_PORT,10) || 3306,
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DATABASE,
+        port: parseInt(process.env.MYSQL_PORT,10) || 3306,
         // uncomment below if using db1/db2
-        ssl: {
-            rejectUnauthorized: false
-        }
     } );
     await state.pool.getConnection(); // Check connection
     Logger.info(`Successfully connected to database`)
