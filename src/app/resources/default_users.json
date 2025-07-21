@@ -1,15 +1,15 @@
 {
   "properties": ["email", "first_name", "last_name", "image_filename", "password"],
   "usersData": [
-    ["k@gmail.com", "Kristy", "Lincoln", "user_1.jpg", "password"],
-    ["c.anagonye@stjohns.edu.au", "Chidi", "Anagonye", "user_2.png", "password"],
-    ["tahani.aljamil@ox.ac.uk", "Tahani", "Al-Jamil", "user_3.gif", "password"],
-    ["e.shellstrop@hotmail.com", "Eleanor" ,"Shellstrop", "user_4.jpg", "password"],
-    ["B@gmail.com", "Fernando", "Brown", "user_5.jpg", "password"],
-    ["jeh128@mail.nz", "Jack", "Chen", "user_6.jpg", "password"],
-    ["a@gmail.com", "Amanda", "Faria", "user_7.PNG", "password"],
-    ["zhe25@mail.nz", "Henry", "Krippner", "user_8.gif", "password"],
-    ["lfg23@mail.nz", "Ella", "Yellow", "user_9.PNG", "password"],
+    ["k@gmail.com", "Kristy", "Lincoln", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676319/user_1_fqjekn.jpg", "password"],
+    ["c.anagonye@stjohns.edu.au", "Chidi", "Anagonye", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676320/user_2_xnxmrp.png", "password"],
+    ["tahani.aljamil@ox.ac.uk", "Tahani", "Al-Jamil", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676322/user_3_puaddm.gif", "password"],
+    ["e.shellstrop@hotmail.com", "Eleanor" ,"Shellstrop", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676320/user_4_ybqrtm.jpg", "password"],
+    ["B@gmail.com", "Fernando", "Brown", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676321/user_5_w3pcuq.jpg", "password"],
+    ["jeh128@mail.nz", "Jack", "Chen", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676320/user_6_hhrxfn.jpg", "password"],
+    ["a@gmail.com", "Amanda", "Faria", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676320/user_7_gldvsy.png", "password"],
+    ["zhe25@mail.nz", "Henry", "Krippner", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676320/user_8_k9f6as.gif", "password"],
+    ["lfg23@mail.nz", "Ella", "Yellow", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676320/user_9_k5xute.png", "password"],
     ["ama541@mail.nz", "Finn", "Veale", null, "password"],
     ["boooooortles@hotmail.com", "Jason", "Mendoza", null, "password"],
     ["mindystclaire@gmail.com", "Mindy", "St. Claire", null, "password"],
@@ -20,6 +20,6 @@
     ["johnwheaton@gmail.com", "John", "Wheaton", null, "password"],
     ["tane.mahuta@example.com", "Tane", "Taumata", null, "password"],
     ["bobbyjones@example.com", "Bob", "Jones", null, "password"],
-    ["m@m.com", "Morgan", "English", "user_20.jpeg", "password"]
+    ["m@m.com", "Morgan", "English", "https://res.cloudinary.com/dravrz1ty/image/upload/v1751676321/user_20_bgp4br.jpg", "password"]
   ]
 }
